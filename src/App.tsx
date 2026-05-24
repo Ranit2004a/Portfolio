@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -15,7 +15,37 @@ import Navbar from './components/Navbar'
 gsap.registerPlugin(ScrollTrigger)
 
 function App() {
+  const [scrollUp, setScrollUp] = useState(false)
+
   useEffect(() => {
+    let lastScrollY = window.scrollY
+    let ticking = false
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const isDarkMode = document.documentElement.classList.contains('dark')
+      if (isDarkMode && currentScrollY > 50) {
+        if (currentScrollY < lastScrollY) {
+          setScrollUp(true)
+        } else {
+          setScrollUp(false)
+        }
+      } else {
+        setScrollUp(false)
+      }
+      lastScrollY = currentScrollY
+      ticking = false
+    }
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(handleScroll)
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', onScroll)
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -37,11 +67,12 @@ function App() {
     return () => {
       lenis.destroy()
       gsap.ticker.remove((time) => lenis.raf(time * 1000))
+      window.removeEventListener('scroll', onScroll)
     }
   }, [])
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary selection:text-primary-foreground">
+    <div className={`relative min-h-screen text-foreground overflow-x-hidden selection:bg-primary selection:text-primary-foreground transition-colors duration-1000 ease-in-out ${scrollUp ? 'bg-[#111844]' : 'bg-background'}`}>
       <Navbar />
       <main>
         <Hero />

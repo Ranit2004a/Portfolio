@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Briefcase, Calendar, ChevronRight } from 'lucide-react'
-import { SiFlask, SiGithubactions, SiPython } from 'react-icons/si'
+import { SiReact, SiTailwindcss, SiTypescript } from 'react-icons/si'
 
 interface ExperienceItem {
   role: string
@@ -12,16 +12,16 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    role: "Software Engineer Intern",
+    role: "Frontend & UI Developer Intern",
     company: "Eastern Coalfields Limited (ECL)",
     duration: "Jul 2024 – Aug 2024",
     bullets: [
-      "Developed and maintained RESTful APIs using Flask, improving backend efficiency and request handling by 30%.",
-      "Engineered a leave management system for 100+ users with secure data handling and responsive dashboard management.",
-      "Automated deployment workflows using GitHub Actions, reducing manual deployment time by 70%.",
-      "Integrated structured logging, debugging workflows, and technical documentation to improve application reliability and maintainability."
+      "Built a custom React typing animation that smoothly renders “Ranit Mondal” character-by-character in a continuous loop. The sequence includes controlled typing, idle timing, and seamless backspacing transitions to create a clean cinematic effect without layout shifting.",
+      "Integrated a pulsing sky-blue cursor that reacts to typing activity and gracefully fades away during idle states, maintaining a minimal and polished interface.",
+      "Implemented non-breaking fallback rendering to prevent text collapse and unwanted layout movement during animation resets.",
+      "Configured clean type handling and optimized build stability to ensure error-free Vite production compilation."
     ],
-    skills: ["Flask", "Python", "RESTful APIs", "GitHub Actions", "CI/CD Automation", "Structured Logging", "System Design"]
+    skills: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vite", "UI/UX Animation", "System Design"]
   }
 ]
 
@@ -118,18 +118,18 @@ export default function Experience() {
                       <div className="flex flex-wrap gap-2">
                         {exp.skills.map((skill, sIdx) => {
                           // Dynamic rendering of specific tech icons if helpful
-                          const isFlask = skill.toLowerCase().includes('flask');
-                          const isPython = skill.toLowerCase().includes('python');
-                          const isGitHub = skill.toLowerCase().includes('github');
+                          const isReact = skill.toLowerCase().includes('react');
+                          const isTailwind = skill.toLowerCase().includes('tailwind');
+                          const isTypeScript = skill.toLowerCase().includes('typescript');
 
                           return (
                             <span
                               key={sIdx}
                               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-secondary/80 text-secondary-foreground text-xs font-bold border border-border/55 hover:border-cyan-400/40 hover:bg-background transition-all duration-200"
                             >
-                              {isFlask && <SiFlask className="w-3 h-3 text-[#000000] dark:text-white" />}
-                              {isPython && <SiPython className="w-3 h-3 text-[#3776AB]" />}
-                              {isGitHub && <SiGithubactions className="w-3 h-3 text-[#2088FF]" />}
+                              {isReact && <SiReact className="w-3 h-3 text-[#61DAFB]" />}
+                              {isTailwind && <SiTailwindcss className="w-3 h-3 text-[#06B6D4]" />}
+                              {isTypeScript && <SiTypescript className="w-3 h-3 text-[#3178C6]" />}
                               {skill}
                             </span>
                           )

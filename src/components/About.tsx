@@ -3,10 +3,9 @@ import { motion, useInView } from 'framer-motion'
 import gsap from 'gsap'
 
 const stats = [
-  { label: 'CGPA', value: 6.78, suffix: '' },
   { label: 'Projects Built', value: 10, suffix: '+' },
   { label: 'Tech Stack', value: 15, suffix: '+' },
-  { label: 'Expected', value: 2026, suffix: '' },
+  { label: 'Pass Out Year', value: 2026, suffix: '' },
 ]
 
 export default function About() {
@@ -53,7 +52,7 @@ export default function About() {
             <h2 className="text-sm font-bold uppercase tracking-widest text-primary">About Me</h2>
           </motion.div>
 
-          <h3 
+          <h3
             ref={textRef}
             className="text-3xl md:text-5xl font-bold leading-tight mb-12 text-balance"
           >
@@ -61,7 +60,7 @@ export default function About() {
           </h3>
 
           <div className="grid md:grid-cols-2 gap-12">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -84,7 +83,8 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + (index * 0.1), duration: 0.5 }}
-                  className="p-6 rounded-2xl bg-background border border-border flex flex-col justify-center"
+                  className={`p-6 rounded-2xl bg-background border border-border flex flex-col justify-center ${index === 2 ? 'col-span-2' : ''
+                    }`}
                 >
                   <div className="text-4xl md:text-5xl font-black text-primary mb-2">
                     {isInView ? <Counter from={0} to={stat.value} /> : '0'}
@@ -113,7 +113,7 @@ function Counter({ from, to }: { from: number, to: number }) {
         val: to,
         duration: 2,
         ease: "power2.out",
-        onUpdate: function() {
+        onUpdate: function () {
           node.innerText = Math.floor(this.targets()[0].val).toString()
         }
       })

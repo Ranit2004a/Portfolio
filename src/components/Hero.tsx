@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Download, ChevronDown } from 'lucide-react'
 import { SiReact, SiNodedotjs, SiDocker, SiKubernetes } from 'react-icons/si'
@@ -13,6 +13,51 @@ export default function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0])
 
+  const fullText = "Ranit Mondal"
+  const [displayedText, setDisplayedText] = useState("")
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [isIdle, setIsIdle] = useState(false)
+
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>
+
+    if (isIdle) {
+      if (isDeleting) {
+        // Hold empty: wait 600ms then start typing
+        timer = setTimeout(() => {
+          setIsDeleting(false)
+          setIsIdle(false)
+        }, 600)
+      } else {
+        // Hold complete name: wait 8000ms then start deleting
+        timer = setTimeout(() => {
+          setIsDeleting(true)
+          setIsIdle(false)
+        }, 8000)
+      }
+    } else {
+      // Actively typing or deleting
+      const delay = isDeleting ? 50 : 120
+      timer = setTimeout(() => {
+        if (!isDeleting) {
+          const nextText = fullText.slice(0, displayedText.length + 1)
+          setDisplayedText(nextText)
+          if (nextText === fullText) {
+            setIsIdle(true)
+          }
+        } else {
+          const nextText = fullText.slice(0, displayedText.length - 1)
+          setDisplayedText(nextText)
+          if (nextText === "") {
+            setIsIdle(true)
+          }
+        }
+      }, delay)
+    }
+
+    return () => clearTimeout(timer)
+  }, [displayedText, isDeleting, isIdle])
+
   const textVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: (i: number) => ({
@@ -26,11 +71,53 @@ export default function Hero() {
     })
   }
 
+  const phraseVariants = {
+    hidden: { opacity: 0, x: -30, filter: 'blur(8px)' },
+    visible: {
+      opacity: 1,
+      x: 0,
+      filter: 'blur(0px)',
+      transition: {
+        delay: 0.15,
+        duration: 0.8,
+        ease: [0.21, 0.47, 0.32, 0.98] as const
+      }
+    }
+  }
+
+  const nameVariants = {
+    hidden: { opacity: 0, y: 25, filter: 'blur(8px)' },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: {
+        delay: 0.45,
+        duration: 0.8,
+        ease: [0.21, 0.47, 0.32, 0.98] as const
+      }
+    }
+  }
+
+  const descVariants = {
+    hidden: { opacity: 0, y: 15, filter: 'blur(4px)' },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: {
+        delay: 0.9,
+        duration: 0.8,
+        ease: [0.21, 0.47, 0.32, 0.98] as const
+      }
+    }
+  }
+
   return (
     <section
       id="home"
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 pb-24 md:pb-12 bg-background"
     >
       {/* Background Gradient & Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -57,22 +144,27 @@ export default function Hero() {
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter leading-[1.1]">
             <motion.span
-              custom={2} variants={textVariants} initial="hidden" animate="visible"
-              className="block"
+              variants={phraseVariants} initial="hidden" animate="visible"
+              className="block cursor-default transition-all duration-300 hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.7)] hover:scale-[1.01]"
             >
               Hi, I'm
             </motion.span>
-            <motion.span
-              custom={3} variants={textVariants} initial="hidden" animate="visible"
-              className="block bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50"
-            >
-              Ranit Mondal
-            </motion.span>
+            <div className="inline-flex items-center">
+              <motion.span
+                variants={nameVariants} initial="hidden" animate="visible"
+                className="block bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/50 cursor-default transition-all duration-300 hover:scale-[1.01] pr-3"
+              >
+                {displayedText || "\u00A0"}
+              </motion.span>
+              <span className={`inline-block w-[4px] h-[0.8em] bg-[#38bdf8] shadow-[0_0_10px_#38bdf8] -translate-x-1 rounded-full transition-all duration-700 ${
+                isIdle ? 'opacity-0 scale-95' : 'opacity-100 animate-pulse'
+              }`} />
+            </div>
           </h1>
 
           <motion.p
-            custom={4} variants={textVariants} initial="hidden" animate="visible"
-            className="text-xl md:text-2xl text-muted-foreground max-w-[600px] font-medium"
+            variants={descVariants} initial="hidden" animate="visible"
+            className="text-xl md:text-2xl text-muted-foreground max-w-[600px] font-medium cursor-default transition-all duration-300 hover:text-foreground hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]"
           >
             Backend-focused Full Stack Developer Engineering scalable web applications, real-time systems, and cloud-native solutions.
           </motion.p>
@@ -106,7 +198,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-          className="flex-1 relative w-full max-w-md lg:max-w-lg aspect-square"
+          className="flex-1 relative w-full max-w-[280px] sm:max-w-md lg:max-w-lg aspect-square mx-auto lg:mx-0"
         >
           {/* Main Image Container */}
           <div className="relative w-full h-full rounded-full overflow-hidden border-[8px] border-background bg-secondary/20 shadow-2xl group ring-4 ring-border/50">
