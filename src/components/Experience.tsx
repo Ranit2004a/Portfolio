@@ -12,14 +12,14 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    role: "Frontend & UI Developer Intern",
+    role: "Software Engineer Intern",
     company: "Eastern Coalfields Limited (ECL)",
-    duration: "Jul 2024 – Aug 2024",
+    duration: "Jul 2025 – Aug 2025",
     bullets: [
-      "Built a custom React typing animation that smoothly renders “Ranit Mondal” character-by-character in a continuous loop. The sequence includes controlled typing, idle timing, and seamless backspacing transitions to create a clean cinematic effect without layout shifting.",
-      "Integrated a pulsing sky-blue cursor that reacts to typing activity and gracefully fades away during idle states, maintaining a minimal and polished interface.",
-      "Implemented non-breaking fallback rendering to prevent text collapse and unwanted layout movement during animation resets.",
-      "Configured clean type handling and optimized build stability to ensure error-free Vite production compilation."
+      " Developed and maintained RESTful APIs using Flask, improving backend efficiency and request handling by 30%.",
+      " Engineered a leave management system for 100+ users with secure data handling and responsive dashboard interfaces.",
+      " Automated deployment workflows using GitHub Actions, reducing manual deployment time by 70%.",
+      " Integrated structured logging, debugging workflows, and technical documentation to improve application reliability and maintainability."
     ],
     skills: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vite", "UI/UX Animation", "System Design"]
   }

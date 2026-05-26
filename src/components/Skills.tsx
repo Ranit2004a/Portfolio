@@ -295,13 +295,13 @@ export default function Skills() {
       title: "Cloud & DevOps",
       icon: Cloud,
       color: "text-[#FF9900]",
-      skills: ["AWS (EC2, ECS, ECR, Lambda, S3)", "Docker", "Kubernetes", "Terraform", "GitHub Actions"]
+      skills: ["AWS (EC2, ECS, ECR, Lambda, S3, IAM,)", "Docker", "Kubernetes", "Terraform", "GitHub Actions","Ansible", ]
     },
     {
       title: "Tools",
       icon: Wrench,
       color: "text-[#EE0000]",
-      skills: ["Git", "GitHub", "Postman"]
+      skills: ["Git", "GitHub", "GitLab", "Postman"]
     },
     {
       title: "ML & Data",
