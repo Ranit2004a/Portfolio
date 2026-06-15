@@ -7,6 +7,19 @@ import { FaAws } from 'react-icons/fa'
 const projects = [
   {
     id: 1,
+    title: 'FLASHCHAT',
+    category: 'Full Stack App',
+    description: [
+      'FlashChat is a full-stack real-time chat application built with React, Node.js, Express, MongoDB, and Socket.IO. It features JWT authentication, media uploads, email notifications, and scalable real-time communication using Redis. The application is containerized with Docker, deployed on a K3s Kubernetes cluster, and automated through a GitHub Actions CI/CD pipeline for reliable, scalable, and zero-downtime deployments'
+
+    ],
+    image: '/Flashchat.png',
+    tech: [SiReact, SiTailwindcss, SiNodedotjs, SiDocker, FaAws],
+    github: 'https://github.com/Ranit2004a/Chat-application',
+    link: 'https://github.com/Ranit2004a/Chat-application'
+  },
+  {
+    id: 2,
     title: 'Real-Time Collaborative Coding',
     category: 'Full Stack App',
     description: [
@@ -20,7 +33,7 @@ const projects = [
     link: 'https://github.com/Ranit2004a/CollabeCode'
   },
   {
-    id: 2,
+    id: 3,
     title: 'GenAI Resume Intelligence',
     category: 'AI Platform',
     description: [
@@ -34,7 +47,7 @@ const projects = [
     link: 'https://github.com/Ranit2004a/AI-Interview-Prep'
   },
   {
-    id: 3,
+    id: 4,
     title: 'Notes App',
     category: 'Cloud-Native',
     description: [
@@ -48,7 +61,7 @@ const projects = [
     link: '#'
   },
   {
-    id: 4,
+    id: 5,
     title: 'AI Voice Assistant',
     category: 'Machine Learning',
     description: [
