@@ -1,13 +1,23 @@
 import { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, Mail } from 'lucide-react'
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaInstagram, FaFacebook } from 'react-icons/fa'
+import { SiLeetcode } from 'react-icons/si'
+
+const NaukriIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2zm2.8 14.5h-2.2v-4.2c0-.9-.7-1.6-1.6-1.6s-1.6.7-1.6 1.6v4.2H7.2V9.5h2.2v1.1c.6-.8 1.6-1.3 2.7-1.3 1.9 0 3.5 1.6 3.5 3.5v3.7z" />
+  </svg>
+)
 
 const socialLinks = [
-  { icon: FaGithub, href: 'https://github.com/Ranit2004a' },
-  { icon: FaLinkedin, href: 'https://www.linkedin.com/in/ranitmmondal/' },
-  { icon: FaInstagram, href: 'https://www.instagram.com/____r_a_n_i_t_____/' },
-  { icon: Mail, href: 'mailto:ranitmondal197@gmail.com' }
+  { icon: FaGithub, href: 'https://github.com/Ranit2004a', label: 'GitHub' },
+  { icon: FaLinkedin, href: 'https://www.linkedin.com/in/ranitmmondal/', label: 'LinkedIn' },
+  { icon: SiLeetcode, href: 'https://leetcode.com/u/Ranit2004a/', label: 'LeetCode' },
+  { icon: NaukriIcon, href: 'https://www.naukri.com/', label: 'Naukri' },
+  { icon: FaInstagram, href: 'https://www.instagram.com/____r_a_n_i_t_____/', label: 'Instagram' },
+  { icon: FaFacebook, href: 'https://www.facebook.com/', label: 'Facebook' },
+  { icon: Mail, href: 'mailto:ranitmondal197@gmail.com', label: 'Email' }
 ]
 
 export default function Contact() {
@@ -267,13 +277,15 @@ export default function Contact() {
             transition={{ delay: 0.6 }}
             className="flex flex-col items-center mt-24 gap-8"
           >
-            <div className="flex gap-6">
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
               {socialLinks.map((link, i) => (
                 <MagneticButton key={i}>
                   <a
                     href={link.href}
                     target={link.href !== '#' && !link.href.startsWith('mailto:') ? "_blank" : undefined}
                     rel={link.href !== '#' && !link.href.startsWith('mailto:') ? "noreferrer" : undefined}
+                    aria-label={link.label}
+                    title={link.label}
                     className="p-4 rounded-full bg-secondary/50 text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-colors inline-block"
                   >
                     <link.icon className="w-6 h-6" />

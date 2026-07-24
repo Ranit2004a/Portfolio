@@ -9,6 +9,7 @@ import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Publications from './components/Publications'
 import Certifications from './components/Certifications'
+import SocialMedia from './components/SocialMedia'
 import Contact from './components/Contact'
 import Navbar from './components/Navbar'
 
@@ -82,6 +83,7 @@ function App() {
         <Projects />
         <Publications />
         <Certifications />
+        <SocialMedia />
         <Contact />
       </main>
     </div>
