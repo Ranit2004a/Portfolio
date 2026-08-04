@@ -7,16 +7,20 @@ import About from './components/About'
 import Experience from './components/Experience'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
+import GithubStats from './components/GithubStats'
+import LeetCodeStats from './components/LeetCodeStats'
 import Publications from './components/Publications'
 import Certifications from './components/Certifications'
 import SocialMedia from './components/SocialMedia'
 import Contact from './components/Contact'
 import Navbar from './components/Navbar'
+import ResumeModal from './components/ResumeModal'
 
 gsap.registerPlugin(ScrollTrigger)
 
 function App() {
   const [scrollUp, setScrollUp] = useState(false)
+  const [isResumeOpen, setIsResumeOpen] = useState(false)
 
   useEffect(() => {
     let lastScrollY = window.scrollY
@@ -74,18 +78,21 @@ function App() {
 
   return (
     <div className={`relative min-h-screen text-foreground overflow-x-hidden selection:bg-primary selection:text-primary-foreground transition-colors duration-1000 ease-in-out ${scrollUp ? 'bg-[#111844]' : 'bg-background'}`}>
-      <Navbar />
+      <Navbar onOpenResume={() => setIsResumeOpen(true)} />
       <main>
-        <Hero />
+        <Hero onOpenResume={() => setIsResumeOpen(true)} />
         <About />
         <Experience />
         <Skills />
         <Projects />
+        <GithubStats />
+        <LeetCodeStats />
         <Publications />
         <Certifications />
         <SocialMedia />
         <Contact />
       </main>
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </div>
   )
 }

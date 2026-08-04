@@ -1,9 +1,13 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, Download, ChevronDown } from 'lucide-react'
+import { ArrowRight, ChevronDown, FileText } from 'lucide-react'
 import { SiReact, SiNodedotjs, SiDocker, SiKubernetes } from 'react-icons/si'
 
-export default function Hero() {
+interface HeroProps {
+  onOpenResume?: () => void
+}
+
+export default function Hero({ onOpenResume }: HeroProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -184,13 +188,13 @@ export default function Hero() {
               </span>
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
             </a>
-            <a
-              href="/cv.pdf"
-              download="Ranit_Mondal_CV.pdf"
-              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-full hover:bg-secondary/80 transition-colors"
+            <button
+              type="button"
+              onClick={onOpenResume}
+              className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-full hover:bg-secondary/80 transition-all hover:scale-105 active:scale-95 border border-border/50 shadow-sm"
             >
-              <Download className="w-4 h-4" /> Download CV
-            </a>
+              <FileText className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" /> View Resume
+            </button>
           </motion.div>
         </div>
 

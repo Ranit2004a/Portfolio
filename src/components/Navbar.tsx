@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Moon, Sun, Menu, X } from 'lucide-react'
+import { Moon, Sun, Menu, X, FileText } from 'lucide-react'
 import { useTheme } from './ThemeProvider'
 import { cn } from '../lib/utils'
 
@@ -10,13 +10,18 @@ const navLinks = [
   { name: 'Experience', href: '#experience' },
   { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
+  { name: 'GitHub', href: '#github' },
   { name: 'Publications', href: '#publications' },
   { name: 'Certifications', href: '#certifications' },
   { name: 'Socials', href: '#socials' },
   { name: 'Contact', href: '#contact' },
 ]
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenResume?: () => void
+}
+
+export default function Navbar({ onOpenResume }: NavbarProps) {
   const { theme, setTheme } = useTheme()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -82,6 +87,17 @@ export default function Navbar() {
           <motion.button
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.45 }}
+            onClick={onOpenResume}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all"
+            title="View Resume / CV"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Resume</span>
+          </motion.button>
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="p-2 rounded-full bg-secondary/50 hover:bg-secondary text-secondary-foreground transition-colors"
@@ -91,7 +107,14 @@ export default function Navbar() {
         </nav>
 
         {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center gap-4">
+        <div className="md:hidden flex items-center gap-3">
+          <button
+            onClick={onOpenResume}
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold border border-primary/20"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>CV</span>
+          </button>
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="p-2 rounded-full bg-secondary/50 hover:bg-secondary text-secondary-foreground transition-colors"
@@ -126,6 +149,15 @@ export default function Navbar() {
                   {link.name}
                 </button>
               ))}
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false)
+                  onOpenResume?.()
+                }}
+                className="text-left text-lg font-bold text-primary py-2 flex items-center gap-2"
+              >
+                <FileText className="w-5 h-5" /> View Resume (PDF)
+              </button>
             </nav>
           </motion.div>
         )}
